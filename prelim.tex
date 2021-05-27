@@ -1,0 +1,36 @@
+\section{Preliminaries on random variables}
+\subsection{Basic quantities}
+
+The \textbf{expection} of a random variable $X$ is denoted as $\E X$, and \textbf{variance} is denoted as $\operatorname{Var}(X) = \E (X - \E X)^2$. (We note that the expectation operator $\E$ can be directly defined as the Lebesgue integral of the random variable $X: \Omega \rightarrow \R$ in the probability space $(\Omega, M, \mu)$.
+
+The \textbf{p-th moment} of $X$ is given by $\E X^p$. We also let $\|X\|_p = ( \E X^p )^{\frac{1}{p}}$ denote the \textbf{p-norm} of $X$. For $p=\infty$, we have:
+\begin{align}
+    \|X\|_\infty = \operatorname{ess}\operatorname{sup}X \nonumber
+\end{align}
+recalling that the \textbf{essential supremum} of a function $f$ is the "smallest value $\gamma$ such that $\{\omega \in \Omega: |f(\omega)| > \gamma \}$ has measure 0".
+
+From this, we can define the $\boldsymbol{L^p}$ \textbf{spaces}, given a probability space $(\Omega, M, \mu)$:
+\begin{align}
+    L^p = \{X : \|X\|_p < \infty\} \footnotemark \nonumber
+\end{align}
+
+\footnotetext{A technical note is that the objects of $L_p$ are actually equivalence classes of functions $[X]$ with equality almost everywhere, otherwise $\|\Cdot\|_p$ is only a semi-norm.}
+
+Results from measure and integration theory tell us that the $(L^p, \|\Cdot\|_p)$ are complete. In the case of $L^2$, we have that with the inner product:
+\begin{align}
+    \langle X,Y \rangle &= \int_\Omega{XY(\omega)\mu(\omega)} \nonumber \\
+    &= \E XY \nonumber
+\end{align}
+
+$(L^2, \langle \Cdot,\Cdot \rangle)$ is a Hilbert space. In this case we can express the \textbf{standard deviation} of X as $\sqrt{\operatorname{Var}(X)} = \|X - \E X\|_2$, and the \textbf{covariance} of random variable $X$ and $Y$ as
+\begin{align}
+    \operatorname{Cov}(X,Y) = \E (X - \E X)(Y - \E Y) = \langle X - \E X, Y - \E Y\rangle ) \nonumber
+\end{align}
+
+\begin{rmk}
+In this setting, considering random variables as vectors in $L^2$, the covariance between $X$ and $Y$ can be interpreted as the \textit{alignment} between the vectors $X - \E X$ and $Y - \E Y$.
+
+\end{rmk}
+
+\subsection{Inequalities}
+\subsection{Limits of random variables}
