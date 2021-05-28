@@ -2,13 +2,53 @@
 
 \section{Appetizer: Using probability to cover a geometric set}
 
-A point $z \in \R^n$ is a \textbf{convex combination} of points $z_1,z_2, ..., z_m \in \R^n$ if 
+A point $x \in \R^n$ is a \textbf{convex combination} of points $x_1,..., x_m \in \R^n$ if 
 \begin{align*}
-z = \sum_{i=1}^m \lambda_i z_i \quad\text{with each } \lambda_i\geq0 \text{ and } \sum_{i=1}^m \lambda_i = 1.
+x = \sum_{i=1}^m \lambda_i x_i \qquad\text{with each } \lambda_i\geq0 \qquad\text{ and }\qquad \sum_{i=1}^m \lambda_i = 1.
 \end{align*}
-The \textbf{convex hull} of $T \sub \R^n$ is the set of all convex combinations of $T$.
+The \textbf{convex hull} of $T \sub \R^n$, $\text{conv}(T)$, is the set of all convex combinations of $T$.
 
-\begin{thm}{0.0.1} (Catheodory's Theorem)
-Every point in the convex hull of a set $T \sub  \R^n$ can be expressed as a convex combination of $\leq n+1$ points from $T$
-% We can find S T with S \leq n+1
+\begin{thm}{0.0.1}[Catheodory's Theorem]\label{0.0.1}
+Let $x \in \text{conv}(T)$. There exists $k \leq n+1$ points $x_1,...,x_k \in T$ such that $x$ is a convex combination of $x_1,...,x_k$.
+\end{thm} 
+
+The result says we can obtain any point in the convex hull of $T$ using at most a dimension-dependent number of points. Let the {\bf diameter} of a set $T$ be defined as $\text{diam}(T) = \sup \{\|x-y\|_2 : x,y \in T\}$.
+
+\begin{thm}{0.0.2}[Approximate Catheodory's Theorem]\label{0.0.2}
+Let $\text{diam}(T) = 1$. Let $x \in \text{conv}(T)$. For any $k$, there exists $k$ points $x_1,...,x_k$ such that
+\begin{align*}
+    \l\| x - \frac 1 k \sum_{j=1}^k x_j\r\|_2 \leq \frac 1 {\sqrt k}
+\end{align*}
 \end{thm}
+
+\begin{proof}
+Suppose $|T| = m$. We write $x = \sum_{i=1}^m\lambda_i x_i$, and interpret $\lambda_i$ as probabilities. We define the random variable
+\begin{align*}
+    X = x_i \text{ with probability } \lambda_i
+\end{align*}
+for $i=1,...,m$. We can verify that $\E X = \sum_{i=1}^m \lambda_i x_i = x$. Taking $X_1,...,X_k \overset{\text{iid}}{\sim} X$. It remains to analyse the quantity $\E \|x - \frac 1 k \sum_{j=1}^k X_j\|_2^2$.
+\begin{align*}
+    \E \l\| x - \frac 1 k \sum_{j=1}^k X_j\r\|_2^2 &\leq \frac{1}{k^2}\E \l\|\sum_{j=1}^k X_j -x\r\|_2^2 \\
+    &= \frac{1}{k^2} \sum_{j=1}^k \E \l\| X_j - x \r\|_2^2  \qquad\text{by Exercise \ref{0.0.3} (a)}\\
+\end{align*}
+
+\end{proof}
+
+\begin{ex}{0.0.3}\label{0.0.3} Check the following identities for random vectors.
+\begin{enumerate}[label=(\alph*)]
+\item Let $X_1,...,X_k$ be independent, mean zero random vectors in $\R^n$. Show that
+\begin{align*}
+    \E \l\|\sum_{j=1}^k X_j\r\|_2^2 = \sum_{j=1}^k \E \|X_j\|_2^2
+\end{align*}
+\begin{proof}[Solution]
+\end{proof}
+
+\item Let $X$ be a random vector in $\R^n$. Show that
+\begin{align*}
+    \E \|X - \E X\|_2^2 = \E\|X\|^2 - \|\E X \|^2_2
+\end{align*}
+\begin{proof}[Solution]
+\end{proof}
+
+\end{enumerate}
+\end{ex}

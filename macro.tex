@@ -7,16 +7,29 @@
 \newcommand{\E}{\operatorname{\mathbb{E}}}
 \newcommand{\sub}{\subseteq}
 
+\renewcommand{\l}{\left}
+\renewcommand{\r}{\right}
+
 
 \theoremstyle{definition}
-\newtheorem{fact}{Fact}
-\newtheorem{thm}{Theorem}
-\newtheorem{defn}{Definition}
-\newtheorem{rmk}{Remark}
-\newtheorem{lemma}{Lemma}
-\newtheorem{cor}{Corollary}
 
-% \newenvironment{thm}[1]{%
-%   \renewcommand\thethm{#1}%
-%   \thm
-% }{\endthm}
+\newtheorem{innercustomgeneric}{\customgenericname}
+\providecommand{\customgenericname}{}
+\newcommand{\newcustomtheorem}[2]{%
+  \newenvironment{#1}[1]
+  {%
+   \renewcommand\customgenericname{#2}%
+   \renewcommand\theinnercustomgeneric{##1}%
+   \innercustomgeneric
+  }
+  {\endinnercustomgeneric}
+}
+
+\newcustomtheorem{thm}{Theorem}
+\newcustomtheorem{lemma}{Lemma}
+\newcustomtheorem{fact}{Fact}
+\newcustomtheorem{defn}{Definition}
+\newcustomtheorem{rmk}{Remark}
+\newcustomtheorem{cor}{Corollary}
+\newcustomtheorem{ex}{Exercise}
+\newcustomtheorem{eg}{Example}
