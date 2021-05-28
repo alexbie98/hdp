@@ -15,22 +15,29 @@ Let $x \in \text{conv}(T)$. There exists $k \leq n+1$ points $x_1,...,x_k \in T$
 The result says we can obtain any point in the convex hull of $T$ using at most a dimension-dependent number of points. Let the {\bf diameter} of a set $T$ be defined as $\text{diam}(T) = \sup \{\|x-y\|_2 : x,y \in T\}$.
 
 \begin{thm}{0.0.2}[Approximate Catheodory's Theorem]\label{0.0.2}
-Let $\text{diam}(T) = 1$. Let $x \in \text{conv}(T)$. For any $k$, there exists $k$ points $x_1,...,x_k$ such that
+Let $\text{diam}(T) = 1$. Let $x \in \text{conv}(T)$. For any $k$, there exists $k$ points $x_1,...,x_k \in T$ such that
 \begin{align*}
     \l\| x - \frac 1 k \sum_{j=1}^k x_j\r\|_2 \leq \frac 1 {\sqrt k}
 \end{align*}
 \end{thm}
 
 \begin{proof}
-Suppose $|T| = m$. We write $x = \sum_{i=1}^m\lambda_i x_i$, and interpret $\lambda_i$ as probabilities. We define the random variable
+Suppose $|T| = m$. WLOG we can assume $T$ is bounded by 1 in $\|\cdot\|_2$. We write $x = \sum_{i=1}^m\lambda_i x_i$, and interpret $\lambda_i$ as probabilities. We define the random variable
 \begin{align*}
     X = x_i \text{ with probability } \lambda_i
 \end{align*}
 for $i=1,...,m$. We can verify that $\E X = \sum_{i=1}^m \lambda_i x_i = x$. Taking $X_1,...,X_k \overset{\text{iid}}{\sim} X$. It remains to analyse the quantity $\E \|x - \frac 1 k \sum_{j=1}^k X_j\|_2^2$.
 \begin{align*}
     \E \l\| x - \frac 1 k \sum_{j=1}^k X_j\r\|_2^2 &\leq \frac{1}{k^2}\E \l\|\sum_{j=1}^k X_j -x\r\|_2^2 \\
-    &= \frac{1}{k^2} \sum_{j=1}^k \E \l\| X_j - x \r\|_2^2  \qquad\text{by Exercise \ref{0.0.3} (a)}\\
+    &= \frac{1}{k^2} \sum_{j=1}^k \E \l\| X_j - x \r\|_2^2  &\text{(by Exercise \ref{0.0.3} (a))}\\
+    &= \frac 1  k \E \|X - x\|^2_2
 \end{align*}
+Applying the result of Exercise \ref{0.0.3} (b), we obtain
+\begin{align*}
+    \E \|X - x\|^2_2 = \E\|X\|_2^2 - \|\E X\|_2^2 \leq \E \|X\|_2^2 \leq 1
+\end{align*}
+Plugging this in above, we obtain the desired bound in expectation, hence there must exist a realization of the $X_j$, $x_1,...,x_k$, such that the bound holds.
+
 
 \end{proof}
 
@@ -38,16 +45,30 @@ for $i=1,...,m$. We can verify that $\E X = \sum_{i=1}^m \lambda_i x_i = x$. Tak
 \begin{enumerate}[label=(\alph*)]
 \item Let $X_1,...,X_k$ be independent, mean zero random vectors in $\R^n$. Show that
 \begin{align*}
-    \E \l\|\sum_{j=1}^k X_j\r\|_2^2 = \sum_{j=1}^k \E \|X_j\|_2^2
+    \E \l\|\sum_{j=1}^k X_j\r\|_2^2 = \E \sum_{j=1}^k \|X_j\|_2^2
 \end{align*}
 \begin{proof}[Solution]
+\begin{align*}
+    \E \l\|\sum_{j=1}^k X_j\r\|_2^2 = \sum_{i=1}^n \E \l(\sum_{j=1}^m X_j^{(i)}\r)^2 &= \sum_{i=1}^n \Var\l(\sum_{j=1}^m X_j^{(i)}\r) &\text{(by mean zero)} \\
+    &= \sum_{i=1}^n \sum_{j=1}^m \Var\l( X_j^{(i)}\r) &\text{(by independence)} \\
+    &= \sum_{i=1}^n \sum_{j=1}^m\E \l(X_j^{(i)}\r)^2  &\text{(by mean zero)} \\
+    &= \E\sum_{j=1}^m \|X_j\|_2^2 
+\end{align*}
+\vspace*{-2\baselineskip}
+
 \end{proof}
+
+Among other things, this result implies that the expected squared distance of a random walk (starting from the origin) is equal to sum of the expected squared distances of each step.
 
 \item Let $X$ be a random vector in $\R^n$. Show that
 \begin{align*}
-    \E \|X - \E X\|_2^2 = \E\|X\|^2 - \|\E X \|^2_2
+    \E \|X - \E X\|_2^2 = \E\|X\|_2^2 - \|\E X \|^2_2
 \end{align*}
 \begin{proof}[Solution]
+\begin{align*}
+    \E \|X - \E X \|_2^2 = \E \sum_{i=1}^n \l(X^{(i)}-(\E X)^{(i)}\r)^2 = \sum_{i=1}^n \Var(X^{(i)}) &= \sum_{i=1}^n\E \l(X^{(i)}\r)^2 - \l(\E X^{(i)}\r)^2 \\
+    &= \E \|X\|_2^2- \|\E X\|_2^2
+\end{align*}
 \end{proof}
 
 \end{enumerate}
