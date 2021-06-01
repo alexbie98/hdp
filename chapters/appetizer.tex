@@ -14,6 +14,8 @@ Let $x \in \text{conv}(T)$. There exists $k \leq n+1$ points $x_1,...,x_k \in T$
 
 The result says we can obtain any point in the convex hull of $T$ using at most a dimension-dependent number of points. Let the {\bf diameter} of a set $T$ be defined as $\text{diam}(T) = \sup \{\|x-y\|_2 : x,y \in T\}$.
 
+% thm 0.0.2 - approximate catheodory's ----------
+
 \begin{thm}{0.0.2}[Approximate Catheodory's Theorem]\label{0.0.2}
 Let $\text{diam}(T) = 1$. Let $x \in \text{conv}(T)$. For any $k$, there exists $k$ points $x_1,...,x_k \in T$ such that
 \begin{align*}
@@ -37,16 +39,16 @@ Applying the result of Exercise \ref{0.0.3} (b), we obtain
     \E \|X - x\|^2_2 = \E\|X\|_2^2 - \|\E X\|_2^2 \leq \E \|X\|_2^2 \leq 1
 \end{align*}
 Plugging this in above, we obtain the desired bound in expectation, hence there must exist a realization of the $X_j$, $x_1,...,x_k$, such that the bound holds.
-
-
 \end{proof}
 
 \begin{ex}{0.0.3}\label{0.0.3} Check the following identities for random vectors.
 \begin{enumerate}[label=(\alph*)]
+
 \item Let $X_1,...,X_k$ be independent, mean zero random vectors in $\R^n$. Show that
 \begin{align*}
     \E \l\|\sum_{j=1}^k X_j\r\|_2^2 = \E \sum_{j=1}^k \|X_j\|_2^2
 \end{align*}
+
 \begin{proof}[Solution]
 \begin{align*}
     \E \l\|\sum_{j=1}^k X_j\r\|_2^2 = \sum_{i=1}^n \E \l(\sum_{j=1}^m X_j^{(i)}\r)^2 &= \sum_{i=1}^n \Var\l(\sum_{j=1}^m X_j^{(i)}\r) &\text{(by mean zero)} \\
@@ -54,8 +56,7 @@ Plugging this in above, we obtain the desired bound in expectation, hence there 
     &= \sum_{i=1}^n \sum_{j=1}^m\E \l(X_j^{(i)}\r)^2  &\text{(by mean zero)} \\
     &= \E\sum_{j=1}^m \|X_j\|_2^2 
 \end{align*}
-\vspace*{-2\baselineskip}
-
+% \vspace*{-2\baselineskip}
 \end{proof}
 
 Among other things, this result implies that the expected squared distance of a random walk (starting from the origin) is equal to sum of the expected squared distances of each step.
@@ -64,13 +65,79 @@ Among other things, this result implies that the expected squared distance of a 
 \begin{align*}
     \E \|X - \E X\|_2^2 = \E\|X\|_2^2 - \|\E X \|^2_2
 \end{align*}
+
 \begin{proof}[Solution]
 \begin{align*}
     \E \|X - \E X \|_2^2 = \E \sum_{i=1}^n \l(X^{(i)}-(\E X)^{(i)}\r)^2 = \sum_{i=1}^n \Var(X^{(i)}) &= \sum_{i=1}^n\E \l(X^{(i)}\r)^2 - \l(\E X^{(i)}\r)^2 \\
     &= \E \|X\|_2^2- \|\E X\|_2^2
 \end{align*}
-\vspace*{-2\baselineskip}
+% \vspace*{-2\baselineskip}
 \end{proof}
 
 \end{enumerate}
 \end{ex}
+
+% corollary 0.0.4 - eps-covering polytopes ----------
+
+\begin{cor}{0.0.4}[Covering polytopes by balls]\label{0.0.4}
+Let $P \sub \R^n$ be a polytope with $\text{diam}(P) = 1$. Let $m$ be the number of vertices of $P$. Let $\eps >0$.
+We can cover $P$ with $m^k$ balls of radius $\eps$ for $k \geq \lceil 1/\eps^2 \rceil$.
+\end{cor}
+
+\begin{proof}
+Take $T$ to be the vertex set of $P$. $|T| = m$. Note that for any $x\in P$, $x \in \text{conv}(T)$.
+By Theorem \ref{0.0.2}, taking $k \geq \lceil 1/\eps^2\rceil$, we can find $x_1,...,x_k \in T$ such that
+\begin{align*}
+    \l\|x - \frac1k\sum_{j=1}^k x_j\r\| \leq \frac1 {\sqrt k} \leq \eps 
+\end{align*}
+The number of ball centres obtained from selecting a set of $k$ points out of $m$ with repetition is bounded by $m^k$ (possibly repeating orders).
+Hence we have an $\eps$-cover sufficient to cover $P$.
+\end{proof}
+
+\begin{ex}{0.0.5}[Bionomial coefficient inequality]\label{0.0.5}
+Show that for $1 \leq r \leq n$
+\begin{align*}
+    \l(\frac n r \r)^r \leq \binom{n}{r} \leq \sum_{k=0}^r \binom{n}{k} \leq \l(\frac{en}r\r)^r
+\end{align*}
+\end{ex}
+
+\begin{proof}[Solution] 
+For the first inequality, consider
+\begin{align*}
+    \frac{\l(\frac n r \r)^r}{\binom{n}{r}} = {\overbrace{\frac{\frac n r}{\frac n r}\cdot \frac{\frac n r}{\frac {n-1} {r-1}} \cdot .... \cdot \frac{\frac n r}{\frac {n-r+1} 1}}^r}
+    \leq 1 \cdot 1 \cdot .... \cdot 1 = 1
+\end{align*}
+The second inequality follows immediately. To justify the last inequality, write
+\begin{align*}
+    \l(\frac {en} {r}\r)^r = e^r \cdot \l(\frac n r\r)^r &= \sum_{k=0}^\infty \frac {r^k} {k!} \cdot \l(\frac n r\r)^r &\text{(Maclaurin series for $e^x$)} \\
+    &\geq \sum_{k=0}^r \frac {r^k} {k!} \cdot \l(\frac n r\r)^r \\
+    &= \sum_{k=0}^r \frac {n^k \cdot n^{r-k}} {k! \cdot r^{r-k}} \\
+    &\geq \sum_{k=0}^r \frac {n^k } {k!} &\text{(by $n \geq r$)}\\
+    &\geq \sum_{k=0}^r \binom{n}{r}
+\end{align*}
+\end{proof}
+
+\begin{ex}{0.0.6}[Improved covering]\label{0.0.6}
+Show that in the setting of Corollary \ref{0.0.4}, for $k \geq \lceil 1/\eps^2 \rceil$
+\begin{align*}
+    (C + C\eps^2m)^k
+\end{align*}
+balls suffice for a suitable constant C.
+\end{ex}
+
+\begin{proof}[Solution] 
+We can give a tighter bound than given in the proof of Corollary \ref{0.0.4} on the number of ball centres obtained from selecting a set of $k$ points out of $m$ with repetition
+(since computing the mean of $k$ is order-invariant with respect to input points). By the ``stars-and-bars''\footnote{\url{https://en.wikipedia.org/wiki/Stars_and_bars_(combinatorics)}} argument, this quantity is given by
+\begin{align*}
+    \binom{m+k-1}{k -1}
+\end{align*}
+Note that $\min\{k-1, m\} = k - 1\leq \min\{k, m-1\}$, so looking at row $m+k-1$ of Pascal's triangle
+\begin{align*}
+    \binom{m+k-1} {k -1} \leq \binom{m+k-1}{k}
+\end{align*}
+Then, using Exercise \ref{0.0.5}
+\begin{align*}
+    \binom{m+k-1}{k} \leq \l(\frac {e (m+k-1)}{k}\r)^k = \l(e\frac{k-1}{k} + e\frac1k m\r)^k \leq (e + e\eps^2m)^k
+\end{align*}
+
+\end{proof}
