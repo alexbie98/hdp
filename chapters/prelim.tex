@@ -1,9 +1,13 @@
 \section{Preliminaries on random variables}
 \subsection{Basic quantities}
 
-The \textbf{expection} of a random variable $X$ is denoted as $\E X$, and \textbf{variance} is denoted as $\operatorname{Var}(X) = \E (X - \E X)^2$. 
-(We note that the expectation operator $\E$ can be directly defined as the Lebesgue integral of the random variable $X: \Omega \rightarrow \R$ in the probability space $(\Omega, M, \mu)$.
+The \textbf{expection} of a random variable $X$ is denoted as $\E X$, and \textbf{variance} is denoted as $\Var(X) = \E (X - \E X)^2$. 
+(We note that the expectation operator $\E$ can be directly defined as the Lebesgue integral of the random variable (measurable function) $X: \Omega \rightarrow \R$ in the probability space $(\Omega, \M, \P)$.
 
+The \textbf{moment generating function} of $X$ is given by
+\begin{align*}
+    M_X(t) = \E e^{tX} \qquad\qquad\text{for all $t\in \R$}
+\end{align*}
 The \textbf{p-th moment} of $X$ is given by $\E X^p$. We also let $\|X\|_p = ( \E X^p )^{\frac{1}{p}}$ denote the \textbf{p-norm} of $X$. For $p=\infty$, we have
 \begin{align}
     \|X\|_\infty = \operatorname{ess}\operatorname{sup}X \nonumber
@@ -12,17 +16,15 @@ recalling that the \textbf{essential supremum} of a function $f$ is the "smalles
 
 From this, we can define the \textbf{$\boldsymbol{L^p}$ spaces}%
 \footnote{A technical note is that the objects of $L_p$ are actually equivalence classes of functions $[X]$ with equality almost everywhere, otherwise $\|\Cdot\|_p$ is only a semi-norm.},
-given a probability space $(\Omega, M, \mu)$
+given a probability space $(\Omega, \M, \P)$
 \begin{align*}
     L^p = \{X : \|X\|_p < \infty\}
 \end{align*}
-
 Results from measure and integration theory tell us that the $(L^p, \|\Cdot\|_p)$ are complete. In the case of $L^2$, we have that with the inner product
 \begin{align*}
     \langle X,Y \rangle &= \int_\Omega{XY(\omega)\mu(\omega)} \\
     &= \E XY
 \end{align*}
-
 $(L^2, \langle \Cdot,\Cdot \rangle)$ is a Hilbert space. In this case we can express the \textbf{standard deviation} of X as $\sqrt{\operatorname{Var}(X)} = \|X - \E X\|_2$, and the \textbf{covariance} of random variable $X$ and $Y$ as
 \begin{align*}
     \operatorname{Cov}(X,Y) = \E (X - \E X)(Y - \E Y) = \langle X - \E X, Y - \E Y\rangle )
@@ -30,5 +32,44 @@ $(L^2, \langle \Cdot,\Cdot \rangle)$ is a Hilbert space. In this case we can exp
 
 In this setting, considering random variables as vectors in $L^2$, the covariance between $X$ and $Y$ can be interpreted as the \textit{alignment} between the vectors $X - \E X$ and $Y - \E Y$.
 
-\subsection{Inequalities}
+\subsection{Some classical inequalities}
+
+We say $f : \R \to \R$ is \textbf{convex} if
+\begin{align*}
+    f((1-t)x + ty) \leq (1-t)f(x) + tf(y) &\qquad\qquad\text{for all $x,y\in\R$ and $t\in[0,1]$}
+\end{align*}
+\textbf{Jensen's inequality} states that for any random variable $X$ and a convex function $f$, we get 
+\begin{align*}
+    f(\E X) \leq \E(f(X))
+\end{align*}
+A corollary of Jensen's inequality implies that\footnote{For $q < \infty$, the result follows by applying Jensen's inequality for $f(x) = x^{\frac q p}$. Otherwise, $\|X\|_\infty = \gamma = (\E \gamma^{p})^{\frac1p} = \|\gamma\|_p \geq \|X\|_p$}
+\begin{align*}
+    \| X\|_p \leq \|X\|_q \qquad\qquad\text{for all $1\leq p \leq q\leq \infty$}
+\end{align*}
+
+\textbf{Minkowski's inequality} asserts that the triangle inequality holds for the $L_p$ spaces
+\begin{align*}
+\|X +  Y\|_p \leq \|X\|_p + \|Y\|_p \qquad\qquad\text{for all $X,Y \in L^p$}
+\end{align*}
+
+In $L^2$, we have the \textbf{Cauchy-Schwarz inequality}, which states that $|\E XY| \leq \E |XY| \leq \|X\|_2 \|Y\|_2$. \textbf{Holder's inequality} additionally asserts that for $1/p + 1/q =1$
+\begin{align*}
+    |\E X Y| \leq \|XY\|_1 \leq \|X\|_p\|Y\|_q
+\end{align*}
+which also holds for $p=1, q=\infty$.
+
+The \textbf{cumulative distribution function} of X is defined as
+\begin{align*}
+    F_X(t) = \P\{X \leq t\} = \P(X^{-1}(-\infty,t]) \qquad\text{for all $t\in\R$}
+\end{align*}
+and we refer to $\P\{X > t\} = 1 - F_X(t)$ as the \textbf{tail} of X.
+
+\begin{lemma}{1.2.1}[Integral identity]\label{1.2.1}
+Let $X\geq0$ be a random variable. Then 
+\begin{align*}
+    \E X = \int^\infty_0\P\{X>t\}dt
+\end{align*}
+\end{lemma}
+
+
 \subsection{Limits of random variables}
