@@ -42,7 +42,7 @@ We say $f : \R \to \R$ is \textbf{convex} if
 \begin{align*}
     f(\E X) \leq \E(f(X))
 \end{align*}
-A corollary of Jensen's inequality implies that\footnote{For $q < \infty$, the result follows by applying Jensen's inequality for $f(x) = x^{\frac q p}$. Otherwise, $\|X\|_\infty = \gamma = (\E \gamma^{p})^{\frac1p} = \|\gamma\|_p \geq \|X\|_p$}
+A corollary of Jensen's inequality implies that\footnote{For $q < \infty$, the result follows by applying Jensen's inequality for $f(x) = x^{\frac q p}$. Otherwise, $\|X\|_\infty = \gamma = (\E \gamma^{p})^{\frac1p} = \|\gamma\|_p \geq \|X\|_p$.}
 \begin{align*}
     \| X\|_p \leq \|X\|_q \qquad\qquad\text{for all $1\leq p \leq q\leq \infty$}
 \end{align*}
@@ -69,7 +69,76 @@ Let $X\geq0$ be a random variable. Then
 \begin{align*}
     \E X = \int^\infty_0\P\{X>t\}dt
 \end{align*}
+with left side $=\infty$ iff right side $=\infty$.
 \end{lemma}
 
+\begin{ex}{1.2.2}[Generalization of integral identity]\label{1.2.2}
+Show that Lemma  can be extended to be valid for any $X$
+\begin{align*}
+    \E X = \int^\infty_0 \P\{X >t\} dt - \int^0_{-\infty} \P\{X < t\} dt
+\end{align*}
+\end{ex}
+\begin{proof}[Answer]
+For not necessary non-negative $X$, $\E X := \E X^+ - \E X^-$ when they exist and are both $< \infty$, where
+\begin{align*}
+    X^+ = \begin{cases}
+            X &\text{if } X\geq0 \\
+            0 &\text{otherwise}
+    \end{cases}\qquad
+    X^- = \begin{cases}
+            -X &\text{if } X\leq0 \\
+            0 &\text{otherwise}
+    \end{cases}
+\end{align*}
+Applying Lemma \ref{1.2.1} to the terms yields the result. For the second term
+\begin{align*}
+    \E X^- = \int^\infty_0 \P\{X^- > t\} dt = \int^\infty_0\P\{X < -t\} dt = \int^0_{-\infty}\P\{X < t\} dt
+\end{align*}
+\end{proof}
 
-\subsection{Limits of random variables}
+\begin{ex}{1.2.3}[$p$-th moment via the tail]\label{1.2.3}
+Let $X$ be a random variable and $0 < p < \infty$. Show that
+\begin{align*}
+    \E |X|^p = \int^\infty_0 pt^{p-1}\P\{|X|>t\} dt
+\end{align*}
+whenever the right side is $<\infty$.
+\end{ex}
+\begin{proof}[Answer]
+On the right side, substitute $u = t^p$, so $du = pt^{p-1} dt$ and
+\begin{align*}
+    \int^\infty_0 pt^{p-1}\P\{|X|>t\} dt = \int^\infty_0 \P\{|X|>u^{\frac1p}\} du = \int^\infty_0 \P\{|X|^p>u\} du = \E |X|^p
+\end{align*}
+where the last equality comes from applying Lemma \ref{1.2.1} to the random variable $|X|^p \geq 0$.
+\end{proof}
+
+\begin{prop}{1.2.4}[Markov's inequality]\label{1.2.4}
+Let $X \geq 0$ with $\E X < \infty$. Then for $t > 0$
+\begin{align*}
+    \P \{ X \geq t\} \leq \frac{\E X} t
+\end{align*}
+\end{prop}
+
+\begin{proof}
+\end{proof}
+
+\begin{cor}{1.2.5}[Chebyshev's inequality]\label{1.2.5}
+Let $X$ have $\E X <\infty$ and $\Var(X) <\infty$. Then for $t > 0$
+\begin{align*}
+    \P \{ |X -\E X| > t\} \leq \frac{\Var(X)} {t^2}
+\end{align*}
+\end{cor}
+
+\begin{ex}{1.2.6}
+Give a proof of Chebyshev's inequality using Markov's inequality.
+\end{ex}
+\begin{proof}[Answer]
+The random variable $|X - \E X|^2$ is well-defined (by $\E X < \infty$), non-negative, with finite expectation. 
+Applying Markov's inequality with $t^2>0$ yields
+\begin{align*}
+    \P \{|X -\E X| \geq t\} =
+    \P \{|X -\E X|^2 \geq t^2\} \leq \frac {Var(X)}{t^2}
+\end{align*}
+\end{proof}
+
+
+\subsection{Limits theorems}

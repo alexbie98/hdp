@@ -49,7 +49,7 @@ Plugging this in above, we obtain the desired bound in expectation, hence there 
     \E \l\|\sum_{j=1}^k X_j\r\|_2^2 = \E \sum_{j=1}^k \|X_j\|_2^2
 \end{align*}
 
-\begin{proof}[Solution]
+\begin{proof}[Answer]
 \begin{align*}
     \E \l\|\sum_{j=1}^k X_j\r\|_2^2 = \sum_{i=1}^n \E \l(\sum_{j=1}^m X_j^{(i)}\r)^2 &= \sum_{i=1}^n \Var\l(\sum_{j=1}^m X_j^{(i)}\r) &\text{(by mean zero)} \\
     &= \sum_{i=1}^n \sum_{j=1}^m \Var\l( X_j^{(i)}\r) &\text{(by independence)} \\
@@ -66,7 +66,7 @@ Among other things, this result implies that the expected squared distance of a 
     \E \|X - \E X\|_2^2 = \E\|X\|_2^2 - \|\E X \|^2_2
 \end{align*}
 
-\begin{proof}[Solution]
+\begin{proof}[Answer]
 \begin{align*}
     \E \|X - \E X \|_2^2 = \E \sum_{i=1}^n \l(X^{(i)}-(\E X)^{(i)}\r)^2 = \sum_{i=1}^n \Var(X^{(i)}) &= \sum_{i=1}^n\E \l(X^{(i)}\r)^2 - \l(\E X^{(i)}\r)^2 \\
     &= \E \|X\|_2^2- \|\E X\|_2^2
@@ -101,7 +101,7 @@ Show that for $1 \leq r \leq n$
 \end{align*}
 \end{ex}
 
-\begin{proof}[Solution] 
+\begin{proof}[Answer] 
 For the first inequality, consider
 \begin{align*}
     \frac{\l(\frac n r \r)^r}{\binom{n}{r}} = {\overbrace{\frac{\frac n r}{\frac n r}\cdot \frac{\frac n r}{\frac {n-1} {r-1}} \cdot .... \cdot \frac{\frac n r}{\frac {n-r+1} 1}}^r}
@@ -125,7 +125,7 @@ Show that in the setting of Corollary \ref{0.0.4}, for $k \geq \lceil 1/\eps^2 \
 balls suffice for a suitable constant C.
 \end{ex}
 
-\begin{proof}[Solution] 
+\begin{proof}[Answer] 
 We can give a tighter bound than given in the proof of Corollary \ref{0.0.4} on the number of ball centres obtained from selecting a set of $k$ points out of $m$ with repetition
 (since computing the mean of $k$ is order-invariant with respect to input points). By the ``stars-and-bars''\footnote{\url{https://en.wikipedia.org/wiki/Stars_and_bars_(combinatorics)}} argument, this quantity is given by
 \begin{align*}
