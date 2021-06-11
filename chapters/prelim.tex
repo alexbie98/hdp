@@ -64,6 +64,8 @@ The \textbf{cumulative distribution function} of X is defined as
 \end{align*}
 and we refer to $\P\{X > t\} = 1 - F_X(t)$ as the \textbf{tail} of X.
 
+% lemma 1.2.1 - integral identity ---------------------
+
 \begin{lemma}{1.2.1}[Integral identity]\label{1.2.1}
 Let $X\geq0$ be a random variable. Then 
 \begin{align*}
@@ -111,6 +113,8 @@ On the right side, substitute $u = t^p$, so $du = pt^{p-1} dt$ and
 where the last equality comes from applying Lemma \ref{1.2.1} to the random variable $|X|^p \geq 0$.
 \end{proof}
 
+% prop 1.2.4+ - markov's & chebyshev's inequalities ---------------------
+
 \begin{prop}{1.2.4}[Markov's inequality]\label{1.2.4}
 Let $X \geq 0$ with $\E X < \infty$. Then for $t > 0$
 \begin{align*}
@@ -119,6 +123,10 @@ Let $X \geq 0$ with $\E X < \infty$. Then for $t > 0$
 \end{prop}
 
 \begin{proof}
+Fix $t>0$. Applying Lemma \ref{1.2.1}
+\begin{align*}
+    \E X = \int_0^\infty \P\{X \geq x\} dx \geq \int_0^t \P\{X \geq x\} dx \geq \int_0^t \P\{X \geq t\} dx = t\cdot\P\{X \geq t\}
+\end{align*}
 \end{proof}
 
 \begin{cor}{1.2.5}[Chebyshev's inequality]\label{1.2.5}
@@ -136,7 +144,7 @@ The random variable $|X - \E X|^2$ is well-defined (by $\E X < \infty$), non-neg
 Applying Markov's inequality with $t^2>0$ yields
 \begin{align*}
     \P \{|X -\E X| \geq t\} =
-    \P \{|X -\E X|^2 \geq t^2\} \leq \frac {Var(X)}{t^2}
+    \P \{|X -\E X|^2 \geq t^2\} \leq \frac {\Var(X)}{t^2}
 \end{align*}
 \end{proof}
 
