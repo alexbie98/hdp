@@ -157,8 +157,39 @@ For independent and identically distributed variables $X_1,...,X_N$, the sample 
 so we should expect it to concentrate around the true mean.
 
 \begin{thm}{1.3.1}[Strong law of large numbers]\label{1.3.1}
-Let $X_1, X_2,...$ be a sequence of i.i.d. random variables with $\E X_1 < \infty$. Then the partial sums
+Let $X_1, X_2,...$ be a sequence of i.i.d. random variables with $\E X_1 < \infty$. Then the averaged partial sums
 \begin{align*}
-    \frac 1 N \sum_{i=1}^N X_i \to \E X_1 \quad\text{almost surely}
+    \frac {S_N} {N} = \frac 1 N \sum_{i=1}^N X_i \to \E X_1 \quad\text{almost surely}
+\end{align*}
+
+where random variables $(Y_N)_{N=1}^\infty$ are said to \textbf{converge almost surely} to a random variable $Y$ if there exists measurable $Z \in \M$ with $\P (Z) = 0$ and
+\begin{align*}
+    \lim_{N\to\infty}Y_N(\omega) = Y(\omega) \quad\text{for every $\omega \in \Omega \setminus Z$}
 \end{align*}
 \end{thm}
+
+\begin{thm}{1.3.2}[Lindeberg-Lévy CLT]\label{1.3.2}
+Let $X_1, X_2, ....$ be a sequence of i.i.d. random variables with $\E X_1 = \mu, \Var(X_1) = \sigma^2 < \infty$. Then the normalized partial sums
+\begin{align*}
+Z_N =\frac {S_N - \E S_N} {\sqrt{\Var(S_N)}}= \frac{\sum_{i=1}^N X_i - N\mu}{\sigma\sqrt{N}} \to N(0,1) \quad\text{in distribution}
+\end{align*}
+
+where real random variables $(Y_N)_{N=1}^\infty$ are said to \textbf{converge in distribution} to a random variable $Y$ if their CDF's $F_{Y_N}(t) := \P \{Y_N \leq t\}$, $F_Y(t):= \P \{Y \leq t\}$ have
+\begin{align*}
+    \lim_{N\to\infty}F_{Y_N}(t) = F_Y(t) \quad\text{for all $t\in \R$}
+\end{align*}
+\end{thm}
+
+\begin{ex}{1.3.3}\label{1.3.3} Let $X_1, X_2, ...$ be a sequence of i.i.d. random variables with $\mu, \sigma^2 < \infty$. Show that
+\begin{align*}
+    \E \l|\frac 1 N \sum_{i=1}^N X_i - \mu\r| = O(\frac 1 {\sqrt N})
+\end{align*}
+\end{ex}
+\begin{proof}[Answer]
+Considering the convex function $\phi(x) = x^2$, we can apply Jensen's to get
+\begin{align*}
+    \l(\E \l|\frac 1 N \sum_{i=1}^N X_i - \mu\r|\r)^2 \leq \Var\l(\frac 1 N \sum_{i=1}^N X_i\r) = \frac {\sigma^2} N
+\end{align*}
+
+taking the square root of both sides yields the result.
+\end{proof}
