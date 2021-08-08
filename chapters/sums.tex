@@ -1,0 +1,67 @@
+
+\section{Concentrations of sums of independent random variables}
+
+\subsection{Why concentration inequalities?}
+
+Concentration inequalities quantify the variation of a random variable around its mean, and take the from
+\begin{align*}
+    \P \{|X - \mu | \geq t\} \leq \text{ something small}
+\end{align*}
+
+\begin{prop}{2.1.2}[Tails of the normal distribution]\label{2.1.2}
+Let $Z \sim N(0,1)$. For $t>0$
+\begin{align*}
+    \l( \frac 1 t - \frac1{t^3} \r) \frac 1 {\sqrt {2\pi}}e^{-t^2 / 2} \leq \P \{Z \geq t\} \leq \frac1t \frac 1 {\sqrt {2\pi}}e^{-t^2 / 2}
+\end{align*}
+In particular, for $t\geq 1$, the tail of $X$ has
+\begin{align*}
+    \P \{Z \geq t\} \leq \frac 1 {\sqrt {2\pi}}e^{-t^2 / 2}
+\end{align*}
+More loosely, we can say 
+\begin{align*}
+\P \{Z \geq T\} = \Theta\l(\frac 1 {t e^{t^2/2}}\r) = \tilde{\Theta}\l(\frac 1 {e^{t^2 / 2}}\r)
+\end{align*}
+\end{prop}
+
+\begin{proof}
+    For the upper bound
+\end{proof}
+
+\begin{eg}{2.1.1}
+Consider $S_N = X_1 + ... + X_N$, each $X_i \sim \text{Bernoulli}(1/2)$. We have $\E S_N = N/2, \Var (S_N) = N/4$. From Chebyshev's inequality (Corollary \ref{1.2.5}), we get
+\begin{align*}
+    \P \l\{ \l|S_N - \frac N 2\r| \geq \frac N 4 \r\} \leq \frac 4 N = O\l(\frac1N\r)
+\end{align*}
+i.e. the probability of satisfying our concentration requirements goes to 0 linearly. Is this upper bound tight?
+
+We know by the CLT (Theorem \ref{1.3.2}), that our normalized $S_N$ converges in distribution to $N(0,1)$. Then for large $N$, we should see that
+\begin{align*}
+    \P \l\{ \l|S_N - \frac N 2\r| \geq \frac N 4\r\} = \P \l\{\l|\frac {S_N - \frac N 2}{\sqrt{\frac N 4}}\r| \geq \sqrt{\frac N 4} \r\} \approx \P \l\{ |Z| \geq \sqrt{\frac N 4} \r\} \leq \frac 1 {\sqrt{2 \pi N}}e^{-N/8} = \tilde{O}\l(\frac 1 {e^{N/8}}\r)
+\end{align*}
+which is exponentially fast (by Proposition \ref{2.1.2}). However this central limit theorem argument can't be made precise, since the error in approximating normalized $S_N$ with $Z$ decays too slowly (in fact slower than linearly via Theorem \ref{2.1.3}). It turns out that for these sums, we can get light tails much faster than we approximate $N(0,1)$.
+
+\end{eg}
+
+\begin{thm}{2.1.3}[Berry-Esseen CLT]\label{2.1.3}
+In the setting of Theorem \ref{1.3.2}, for all $N$
+\begin{align*}
+    |F_{Z_N}(t) - F_Z(t)| \leq  \frac \rho {\sqrt{N}} \quad\text{for all $t\in\R$}
+\end{align*}
+where $\rho = \E |X_1 - \mu|^3/\sigma^3$.
+\end{thm}
+Note that in comparison to Theorem \ref{1.3.2} it additionally requires the third moment $\E X_1^3 < \infty$, and in turn provides a \textit{quantitative} rate for \textit{uniform} convergence in distribution to $N(0,1)$.
+
+
+\begin{ex}{2.1.4}[Truncated normal distribution]
+Let $Z \sim N(0,1)$. Show that for all $t\geq 1$
+\begin{align*}
+    \E Z^2 \mathbbm{1}_{\{Z\geq t\}} = t \frac1{\sqrt{2\pi}}e^{-t^2/2} + \P(Z \geq t) \leq \l(t + \frac1t \r) \frac 1 {\sqrt{2\pi}} e^{-t^2/2}
+\end{align*}
+\end{ex}
+
+\begin{proof}[Answer]
+\end{proof}
+\subsection{Hoeffding's inequality}
+
+\subsection{Chernoffs's inequality}
+
