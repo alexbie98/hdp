@@ -24,7 +24,14 @@ More loosely, we can say
 \end{prop}
 
 \begin{proof}
-    For the upper bound
+For the upper bound, we substitute $x = y+t$ to get
+\begin{align*}
+    \int^\infty_t\frac 1 {\sqrt{2\pi}}e^{-x^2/2} dx = \int_0^\infty\frac1{\sqrt{2\pi}}e^{-y^2/2}e^{-ty}e^{-t^2/2} dy \leq \frac 1 {\sqrt{2\pi}}e^{-t^2}\int_0^\infty e^{-ty} dy = \frac1t \frac 1 {\sqrt {2\pi}}e^{-t^2 / 2}
+\end{align*}
+For the lower bound, we make use of the identity
+\begin{align*}
+    \int^\infty_t e^{-x^2/2}dx \geq \int^\infty_t (1-3x^{-4})e^{-x^2/2}dx = \l(\frac1t - \frac1{t^3}\r)e^{-t^2/2}
+\end{align*}
 \end{proof}
 
 \begin{eg}{2.1.1}
