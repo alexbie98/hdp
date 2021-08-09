@@ -13,7 +13,7 @@ Let $Z \sim N(0,1)$. For $t>0$
 \begin{align*}
     \l( \frac 1 t - \frac1{t^3} \r) \frac 1 {\sqrt {2\pi}}e^{-t^2 / 2} \leq \P \{Z \geq t\} \leq \frac1t \frac 1 {\sqrt {2\pi}}e^{-t^2 / 2}
 \end{align*}
-In particular, for $t\geq 1$, the tail of $X$ has
+In particular, for $t\geq 1$, the tail of $Z$ has
 \begin{align*}
     \P \{Z \geq t\} \leq \frac 1 {\sqrt {2\pi}}e^{-t^2 / 2}
 \end{align*}
@@ -26,7 +26,7 @@ More loosely, we can say
 \begin{proof}
 For the upper bound, we substitute $x = y+t$ to get
 \begin{align*}
-    \int^\infty_t\frac 1 {\sqrt{2\pi}}e^{-x^2/2} dx = \int_0^\infty\frac1{\sqrt{2\pi}}e^{-y^2/2}e^{-ty}e^{-t^2/2} dy \leq \frac 1 {\sqrt{2\pi}}e^{-t^2}\int_0^\infty e^{-ty} dy = \frac1t \frac 1 {\sqrt {2\pi}}e^{-t^2 / 2}
+    \int^\infty_t\frac 1 {\sqrt{2\pi}}e^{-x^2/2} dx = \int_0^\infty\frac1{\sqrt{2\pi}}e^{-y^2/2}e^{-ty}e^{-t^2/2} dy \leq \frac 1 {\sqrt{2\pi}}e^{-t^2/2}\int_0^\infty e^{-ty} dy = \frac1t \frac 1 {\sqrt {2\pi}}e^{-t^2 / 2}
 \end{align*}
 For the lower bound, we make use of the identity
 \begin{align*}
@@ -67,6 +67,12 @@ Let $Z \sim N(0,1)$. Show that for all $t\geq 1$
 \end{ex}
 
 \begin{proof}[Answer]
+To prove the equality
+\begin{align*}
+    \E Z^2 \mathbbm{1}_{\{Z\geq t\}} := \int^\infty_t z^2 \frac 1 {\sqrt{2\pi}}e^{-z^2/2} dz = \frac 1 {\sqrt{2\pi}}\l(\l[-ze^{-z^2/2}\r]^\infty_t + \int^\infty_t e^{-z^2/2} dz\r) 
+    =t\frac1{\sqrt{2\pi}}e^{-t^2/2} + \P\{Z \geq t\}
+\end{align*}
+The inequality follows from the tail upper bound from Proposition \ref{2.1.2}.
 \end{proof}
 \subsection{Hoeffding's inequality}
 
