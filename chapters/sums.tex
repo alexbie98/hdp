@@ -104,10 +104,7 @@ Examining the numerator of the right side of the inequality
     &\leq \prod_{i=1}^N \exp(\lambda^2 a_i^2/2) &\text{(by Exercise \ref{2.2.3})}\\
     &= \exp(\lambda^2/2) &\text{(since $\|a\|_2^2$ = 1)}
 \end{align*}
-To complete the proof we optimize $\lambda$ to minimize the right hand side of the expression
-\begin{align*}
-    \exp(\lambda^2/2 - \lambda t)
-\end{align*}
+To complete the proof we optimize $\lambda$ to minimize the right hand side of the obtained tail bound inequality, $\exp(\lambda^2/2 - \lambda t)$.
 Setting $d(\lambda^2/2 - \lambda t)/d\lambda = \lambda - t = 0$ yields the minimum $\lambda = t$. This yields the desired inequality
 \begin{align*}
     \P \l\{\sum_{i=1}^N a_i X_i \geq t\r\} \leq \exp(-t^2/2\|a\|_2^2)
