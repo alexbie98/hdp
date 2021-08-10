@@ -34,7 +34,7 @@ For the lower bound, we make use of the identity
 \end{align*}
 \end{proof}
 
-\begin{eg}{2.1.1}
+{\begin{eg}{2.1.1}\label{2.1.1}
 Consider $S_N = X_1 + ... + X_N$, each $X_i \sim \text{Bernoulli}(1/2)$. We have $\E S_N = N/2, \Var (S_N) = N/4$. From Chebyshev's inequality (Corollary \ref{1.2.5}), we get
 \begin{align*}
     \P \l\{ \l|S_N - \frac N 2\r| \geq \frac N 4 \r\} \leq \frac 4 N = O\l(\frac1N\r)
@@ -88,6 +88,7 @@ Let $X_1,...,X_N$ be independent Rademacher random variables. Let $a = (a_1,...,
 \P \l\{\sum_{i=1}^N a_i X_i \geq t\r\} \leq \exp\l( \frac {-t^2}{2\|a\|^2_2}\r)
 \end{align*}
 \end{thm}
+
 \begin{proof}
 WLOG assume $\|a\|_2^2 = 1$. If we prove this version of the theorem, then for any $b = ca \in \R^N$,
 \begin{align*}
@@ -129,6 +130,66 @@ Note that for $k=0$, the terms match. For $k \geq 1$,
 \end{align*}
 where the last statement holds if $k+1 \geq 2 \iff k \geq 1$. Hence for all $x \in \R$, the partial sums of the expansion of $\cosh(x)$ are upper bounded by the partial sums of the expansion of $e^{x^2/2}$, which implies the same for their limits.
 \end{proof}
+
+\begin{rmk}{2.2.4} We can use Hoeffding's to analyze the $N$ coin flips from Example \ref{2.1.1}, achieving the desired (non-asymptotic) exponentially decaying tail probabilities.
+\begin{align*}
+    \P \l\{\sum_{i=1}^N X_i \geq 3N/4\r\} = \P \l\{\sum_{i=1}^N 2X_i -1 \geq N/2\r\} \leq \exp\l(-(N/2)^2/2N\r) = \exp \l(-N/8\r)
+\end{align*}
+\end{rmk}
+
+\begin{thm}{2.2.6}[Hoeffding's inequality for general bounded RVs] \label{2.2.6}
+Let $X_1,...,X_N$ be independent random variables, with each $X_i$'s support $[m_i, M_i]$. For $t>0$
+\begin{align*}
+    \P \l\{\sum_{i=1}^N (X_i - \E X_i) \geq t\r\} \leq \exp\l( \frac {-2t^2}{\sum_{i=1}^N (M_i - m_i)^2}\r)
+    \end{align*}
+\end{thm}
+
+\begin{ex}{2.2.7}\label{2.2.7}
+Prove Theorem \ref{2.2.6}, possible with some absolute constant instead of 2 in the tail.
+\end{ex}
+\begin{proof}[Answer]
+\end{proof}
+
+\begin{ex}{2.2.8}[Boosting randomized algorithms]\label{2.2.8}
+Suppose we have a randomized algorithm for a decision problem that is correct with probability $1/2 + \eps$ for some $\eps>0$. Show that running the algorithm $N$ times independently and taking the majority yields the correct answer with probability $\geq 1 -\delta$ for $N\geq \frac 1 {2\epsilon^2} \log \frac 1 \delta$
+\end{ex}
+\begin{proof}[Answer]
+\end{proof}
+
+\begin{ex}{2.2.9}[Robust mean estimation]\label{2.2.9}
+Suppose we want to estimate the mean $\mu$ of a random variable $X$ from $X_1,...,X_N$ copies drawn independently. We want an $\eps$-accurate estimate (falls within $(\eps-\mu, \eps+\mu)$).
+\begin{enumerate}[label=(\alph*)]
+\item Show a sample size $N = O(\sigma^2/\eps^2)$ is sufficient for an $\eps$-accurate estimate w.p. $\geq 3/4$, where $\sigma^2 = \Var(X)$.
+\begin{proof}[Answer]
+\end{proof}
+
+\item Show a sample size $N = O(\log(1/\delta)\sigma^2/\eps^2)$ is sufficient for an $\eps$-accurate estimate w.p. $\geq 1-\delta$.
+\begin{proof}[Answer]
+\end{proof}
+\end{enumerate}
+\end{ex}
+
+
+\begin{ex}{2.2.10}[Small ball probabilities]\label{2.2.10}
+Let $X_1,...,X_N$ be non-negative independent random variables with continuous distributions. Assume their densities are bounded by 1.
+\begin{enumerate}[label=(\alph*)]
+\item Show that the MGF of $X_i$ satisfies
+\begin{align*}
+    \E \exp(-tX_i) \leq \frac 1 t \qquad{\text{for all $t\geq 0$}}
+\end{align*}
+\begin{proof}[Answer]
+\end{proof}
+
+\item Deduce that for any $\eps > 0$ we have
+\begin{align*}
+    \P \l\{\sum_{i=1}^N X_i \leq \eps N\r\} \leq (e\eps)^N
+\end{align*}
+\begin{proof}[Answer]
+\end{proof}
+
+\end{enumerate}
+\end{ex}
+
 
 \subsection{Chernoffs's inequality}
 
