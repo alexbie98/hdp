@@ -117,6 +117,18 @@ Show that
     \cosh(x) \leq \exp\l(x^2/2\r) \qquad\text{for all $x\in \R$}
 \end{align*}
 \end{ex}
+\begin{proof}[Answer]
+    Recalling that $e^x = \sum_{k=0}^\infty x^k/k!$ for all $x\in \R$, we can compute taylor expansions that converge on $\R$
+\begin{align*}
+    \cosh(x) &= \frac 1 2 \l(\sum_{k=0}^\infty \frac {x^k} {k!} + \sum_{k=0}^\infty \frac {{(-x)}^k} {k!} \r) = \sum_{k=0}^\infty \frac {x^{2k}} {(2k)!} \\
+    e^{x^2/2} &= \sum_{k=0}^\infty \frac {(x^2/2)^k} {k!} = \sum_{k=0}^\infty \frac {x^{2k}}{k! 2^k}
+\end{align*}
+Note that for $k=0$, the terms match. For $k \geq 1$, 
+\begin{align*}
+    \frac {x^{2k}} {(2k)!} \le \frac {x^{2k}} {k!2^k} \iff (2k)! \geq k!2^k \iff 2k \cdot ... \cdot k+1 \geq \underbrace{2 \cdot ... \cdot 2}_{\text{$k$ times}}
+\end{align*}
+where the last statement holds if $k+1 \geq 2 \iff k \geq 1$. Hence for all $x \in \R$, the partial sums of the expansion of $\cosh(x)$ are upper bounded by the partial sums of the expansion of $e^{x^2/2}$, which implies the same for their limits.
+\end{proof}
 
 \subsection{Chernoffs's inequality}
 
