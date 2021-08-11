@@ -206,10 +206,25 @@ Suppose we want to estimate the mean $\mu$ of a random variable $X$ from $X_1,..
 \begin{enumerate}[label=(\alph*)]
 \item Show a sample size $N = O(\sigma^2/\eps^2)$ is sufficient for an $\eps$-accurate estimate w.p. $\geq 3/4$, where $\sigma^2 = \Var(X)$.
 \begin{proof}[Answer]
+Note that we can't directly apply Hoeffding's since we don't know if $X$ is bounded. However we can apply Chebyshev's (Corollary \ref{1.2.5})
+\begin{align*}
+    \P \l\{ \l|\frac1N\sum_{i=1}^N X_i - \mu \r| \geq \eps\r\} \leq \Var\l( \frac1N\sum_{i=1}^N X_i\r)/\eps^2 = \sigma^2/N\eps^2
+\end{align*}
+and $\sigma^2/N\eps^2 \leq 1/4 \iff N \geq 4(\sigma^2/\eps^2)$, giving our $\geq 3/4$ success probability with $N = O(\sigma^2/\eps^2)$ samples.
 \end{proof}
 
 \item Show a sample size $N = O(\log(1/\delta)\sigma^2/\eps^2)$ is sufficient for an $\eps$-accurate estimate w.p. $\geq 1-\delta$.
 \begin{proof}[Answer]
+Note that plugging in $\delta$ into Chebyshev's in (a) would give us a $N = O(\sigma^2/\eps^2\delta)$ sample requirement to achieve the desired success probability, which has much worse dependence on $\delta$. What we can do instead is boost our weak estimator by running it $k$ times and producing the median. Let our weak estimates be $\hat{\mu}_i$ obtained using $N$ samples for $1 \leq i \leq k$ (for $k$ odd). Note that $\text{Median}(\hat{\mu}_1,...,\hat{\mu}_k)$ is outside of $(\mu -\eps, \mu +\eps)$ iff there are either $\geq (k+1)/2$ estimates $> \mu +\eps$ or $\geq (k+1)/2$ estimates $< \mu -\eps$. In either case, we have that our weak estimator failed $\geq (k+1)/2$ times. Letting $F_i = 1 \text{ when $\hat{\mu}_i \in (\mu-\eps, \mu+\eps)$}$ and 0 otherwise, we get
+\begin{align*}
+    \P \l\{\text{Median}(\hat{\mu}_1,...,\hat{\mu}_k) \text{ is not $\eps$-accurate}\r\} &\leq \P \l\{\sum_{i=1}^k F_i \geq \frac {k+1}2\r\} \\
+    &= \P \l\{\sum_{i=1}^k (F_i - \E F_1) \geq \frac {k+1}2 - k\E F_1\r\} \\
+    &\leq \P \l\{\sum_{i=1}^k (F_i - \E F_1) \geq \frac {k+1}2 - \frac k 4\r\} &\text{(by $\E F_1 \leq 1/4$)} \\
+    &\leq \exp\l(-2\l(\frac {k+2} 4\r)^2/k\r) &\text{(Hoeffding's, Thm. \ref{2.2.6})} \\
+    &\leq \exp\l(-k/8\r) &\text{(since $(k+2)/4 \geq k/4$)}
+\end{align*}
+Taking odd $k \geq 8\log (1/\delta)$ bounds the error probability to $\leq \delta$ and uses $kN \leq  (8\log (1/\delta) +2) 4(\sigma^2/\eps^2) = O(\log(1/\delta)\sigma^2/\eps^2)$ samples.
+
 \end{proof}
 \end{enumerate}
 \end{ex}
