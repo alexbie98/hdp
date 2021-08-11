@@ -180,9 +180,25 @@ Where the second inequality is by Jensen's. Since $X-X'$ has a symmetric distrib
 \end{proof}
 
 \begin{ex}{2.2.8}[Boosting randomized algorithms]\label{2.2.8}
-Suppose we have a randomized algorithm for a decision problem that is correct with probability $1/2 + \eps$ for some $\eps>0$. Show that running the algorithm $N$ times independently and taking the majority yields the correct answer with probability $\geq 1 -\delta$ for $N\geq (1/2\eps^2) \log \frac 1 \delta$.
+Suppose we have a randomized algorithm for a decision problem that is correct with probability $1/2 + \eps$ for some $\eps>0$. Show that running the algorithm $N$ times independently and taking the majority yields the correct answer with probability $\geq 1 -\delta$ for $N\geq (1/2\eps^2) \log (1/ \delta)$.
 \end{ex}
 \begin{proof}[Answer]
+Suppose the input to our algorithm $A$ is a YES instance, and define the random variable $X_i$
+\begin{align*}
+    X_i =\begin{cases}
+        \phantom{-}1 &\text{if $i$th run of $A$ outputs YES w.p. } 1/2 + \eps \\
+        -1 &\text{if $i$th run of $A$ outputs NO\phantom{ } w.p. } 1/2 - \eps
+    \end{cases}
+\end{align*}
+Then we have
+\begin{align*}
+    \P \{\text{Majority}(X_1,...,X_N) = -1 \} = \P \l\{\sum_{i=1}^N X_i \leq 0\r\} = \P \l\{\sum_{i=1}^N (X_i - 2\eps) \leq -2N\eps\r\} \leq \exp\l(-2N\eps^2\r)
+\end{align*}
+where the last inequality is obtained by Hoeffding's inequality (Theorem \ref{2.2.6}) applied to the bounded random variables $-X_i$'s. Finally we note that 
+\begin{align*}
+    N \geq \frac 1 {2\eps^2}\log \frac 1 \delta \iff 2N\eps^2 \geq \log \frac 1 \delta \iff \exp\l(-2N\eps^2\r) \leq \delta
+\end{align*}
+Therefore our algorithm is correct on YES instances with probability $\geq 1-\delta$. We can use the same argument to conclude the same on NO instances, completing the proof.
 \end{proof}
 
 \begin{ex}{2.2.9}[Robust mean estimation]\label{2.2.9}
