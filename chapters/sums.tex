@@ -119,7 +119,7 @@ Show that
 \end{align*}
 \end{ex}
 \begin{proof}[Answer]
-    Recalling that $e^x = \sum_{k=0}^\infty x^k/k!$ for all $x\in \R$, we can compute taylor expansions that converge on $\R$
+    Recalling that $e^x = \sum_{k=0}^\infty x^k/k!$ for all $x\in \R$, we can compute Taylor expansions that converge on $\R$
 \begin{align*}
     \cosh(x) &= \frac 1 2 \l(\sum_{k=0}^\infty \frac {x^k} {k!} + \sum_{k=0}^\infty \frac {{(-x)}^k} {k!} \r) = \sum_{k=0}^\infty \frac {x^{2k}} {(2k)!} \\
     e^{x^2/2} &= \sum_{k=0}^\infty \frac {(x^2/2)^k} {k!} = \sum_{k=0}^\infty \frac {x^{2k}}{k! 2^k}
@@ -148,6 +148,35 @@ Let $X_1,...,X_N$ be independent random variables, with each $X_i$'s support $[m
 Prove Theorem \ref{2.2.6}, possibly with some absolute constant instead of 2 in the tail.
 \end{ex}
 \begin{proof}[Answer]
+We consider $X_i$ with mean 0. For $X_i$ without mean 0, we set $Y_i = X_i - \E X_i$ and proceed in the proof with $Y_i$ which have the same support length as the $X_i$.
+The argument follows as in the proof of Theorem \ref{2.2.2} differing only at the part where we obtain a bound for the MGF of the individual $X_i$.
+
+\begin{clm}{}[Hoeffding's lemma]
+For a bounded random variable $X \in [m, M]$ with mean 0, we have
+\begin{align*}
+    \E \exp(\lambda X) \leq \exp (\lambda^2(M-m)^2/2)
+\end{align*}
+\end{clm}
+With the claim we arrive at the inequality
+\begin{align*}
+    \P \l\{ \sum_{i=1}^N X_i \geq t\r\} \leq \exp\l((\lambda^2/2) \sum_{i=1}^N (M_i -m_i)^2 -\lambda t)\r)
+\end{align*}
+Optimizing $\lambda$ yields $\lambda = t/\sum_{i=1}^N (M_i - m_i)^2$ and we get
+\begin{align*}
+\P \l\{ \sum_{i=1}^N X_i \geq t\r\} \leq \exp\l(\frac {-(1/2)t^2}{\sum_{i=1}^N (M_i-m_i)^2}\r)
+\end{align*}
+Note that the $1/2$ in the tail is looser than the 2 in the theorem statement, which we can get if we prove a tighter version of Hoeffding's lemma (with /8 instead of /2) using Taylor approximations.
+For the proof of the claim, we follow an argument by symmetrization presented in the proof of Lemma 5 from these CS229 lecture notes\footnote{\url{http://cs229.stanford.edu/extra-notes/hoeffding.pdf}} by John Duchi.
+Consider $X'$ an independent copy of $X$. We have
+\begin{align*}
+    \E \exp \l(\lambda X\r) = \E_X \exp\l(\lambda (X - \E_{X'} X')\r) \leq \E_X \E_{X'} \exp \l(\lambda (X - X')\r) = \E_X \E_{X',S} \exp \l(\lambda S(X - X')\r) 
+\end{align*}
+Where the second inequality is by Jensen's. Since $X-X'$ has a symmetric distribution, it has the same distribution as $S (X -X')$, where $S$ is a Rademacher random variable, giving us the last equality.
+\begin{align*}
+     \E_X \E_{X',S} \exp \l(\lambda S(X - X')\r) &= \E_{X,X'} \cosh \l(\lambda (X - X')\r) &\text{(by definition of $\E_S$ of Rademacher RVs)} \\
+     &\leq \E_{X,X'} \exp \l(\lambda^2 (X - X')^2/2\r) &\text{(by Exercise \ref{2.2.3})}\\
+     &\leq \exp \l(\lambda^2(M-m)^2/2\r) &\text{(since $|X-X'| \leq |M-m|$)}
+\end{align*}
 \end{proof}
 
 \begin{ex}{2.2.8}[Boosting randomized algorithms]\label{2.2.8}
