@@ -265,3 +265,58 @@ Note that this choice of $\lambda$ minimizes the right hand side of the expressi
 
 \subsection{Chernoff's inequality}
 
+In the case where $X_i \sim \text{Bernoulli}(p_i)$ we can get tighter bounds than Hoeffding's.
+
+\begin{thm}{2.3.1}[Chernoff's inequality]\label{2.3.1}
+Let $X_1,...,X_N$ be independent Bernoulli random variables with parameters $p_i$ for $1 \leq i \leq N$. Denote $\mu = \E\sum_{i=1}^N X_i = \sum_{i=1}^N p_i$. For $t>\mu$
+\begin{align*}
+    \P \l\{\sum_{i=1}^N X_i \geq t \r\} \leq e^{-\mu}\l(\frac {e \mu} {t}\r)^t
+\end{align*}
+\end{thm}
+\begin{proof}
+\end{proof}
+
+\begin{ex}{2.3.2}[Chernoff's inequality, lower tail]\label{2.3.2}
+In the setting of Theorem \ref{2.3.1}, show that for $t < \mu$
+\begin{align*}
+    \P \l\{\sum_{i=1}^N X_i \leq t \r\} \leq e^{-\mu}\l(\frac {e \mu} {t}\r)^t
+\end{align*}
+\end{ex}
+
+\begin{ex}{2.3.3}[Poisson tails]\label{2.3.3}
+Let $X \sim \text{Poisson}(\lambda)$. Show that for $t > \mu$
+\begin{align*}
+    \P \l\{X \geq t \r\} \leq e^{-\lambda} \l( \frac {e\lambda} {t}\r)^t
+\end{align*}
+\end{ex}
+
+\begin{rmk}{2.3.4}[Poisson tails]\label{2.3.4}
+Applying Stirling's formula $k! \approx \sqrt{2\pi k}(k/e)^k$ to the Poisson density yields
+\begin{align*}
+    \P \{X = k\} \approx \frac 1 {\sqrt{2 \pi k}} e^{-\lambda} \l(\frac{e \lambda}k \r)^k
+\end{align*}
+So the tail bound of all the mass $\geq k$ from Exercise \ref{2.3.3} is only a logarithmic factor (w.r.t. main term) larger than the mass assigned to only $k$.
+\end{rmk}
+
+\begin{ex}{2.3.5}[Chernoff's inequality, small deviations]\label{2.3.5}
+In the setting of Theorem \ref{2.3.1}, for $0 < \delta < 1$
+\begin{align*}
+    \P \l\{\l| \sum_{i=1}^N X_i - \mu\r| \geq \delta\mu\r\} \leq 2\exp\l(-c\mu\delta^2\r)
+\end{align*}
+where $c$ is some absolute constant. Compared to the Hoeffding bound that has $-c\mu^2\delta^2/N$ in its exponent, we have $-c\mu\delta^2$, a $N/\mu \geq 1$ multiplier which speeds up convergence especially for small $\mu = \sum_{i=1}^N p_i$. 
+\end{ex}
+
+\begin{ex}{2.3.6}[Poisson distribution near the mean]\label{2.3.6}
+Let $X \sim \text{Poisson}(\lambda)$. Show that for $0 < t \leq \lambda$
+\begin{align*}
+    \P \l\{ |X - \lambda| \geq  t \r\} \leq 2\exp\l(- \frac {ct^2} \lambda \r)
+\end{align*}
+for some absolute constant $c$. Note that this, combined with Exercise \ref{2.3.3} tell us that we have gaussian tails near the mean, but further away they are heavier.
+\end{ex}
+
+\begin{ex}{2.3.8}[Normal approximation to Poisson]\label{2.3.8}
+Let $X \sim \text{Poisson}(\lambda)$. Show that as $k\to\infty$
+\begin{align*}
+    \frac {X - \lambda} {\sqrt{\lambda}} \to N(0,1) \quad\text{in distribution}
+\end{align*}
+\end{ex}
