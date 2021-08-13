@@ -215,7 +215,7 @@ and $\sigma^2/N\eps^2 \leq 1/4 \iff N \geq 4(\sigma^2/\eps^2)$, giving our $\geq
 
 \item Show a sample size $N = O(\log(1/\delta)\sigma^2/\eps^2)$ is sufficient for an $\eps$-accurate estimate w.p. $\geq 1-\delta$.
 \begin{proof}[Answer]
-Note that plugging in $\delta$ into Chebyshev's in (a) would give us a $N = O(\sigma^2/\eps^2\delta)$ sample requirement to achieve the desired success probability, which has much worse dependence on $\delta$. What we can do instead is boost our weak estimator by running it $k$ times and producing the median. Let our weak estimates be $\hat{\mu}_i$ obtained using $N$ samples for $1 \leq i \leq k$ (for $k$ odd). Note that $\text{Median}(\hat{\mu}_1,...,\hat{\mu}_k)$ is outside of $(\mu -\eps, \mu +\eps)$ iff there are either $\geq (k+1)/2$ estimates $> \mu +\eps$ or $\geq (k+1)/2$ estimates $< \mu -\eps$. In either case, we have that our weak estimator failed $\geq (k+1)/2$ times. Letting $F_i = 1 \text{ when $\hat{\mu}_i \in (\mu-\eps, \mu+\eps)$}$ and 0 otherwise, we get
+Note that plugging in $\delta$ into Chebyshev's in (a) would give us a $N = O(\sigma^2/\eps^2\delta)$ sample requirement to achieve the desired success probability, which has much worse dependence on $\delta$. What we can do instead is boost our weak estimator by running it $k$ times and producing the median. Let our weak estimates be $\hat{\mu}_i$ obtained using $N$ samples each for $1 \leq i \leq k$ (for $k$ odd). Note that $\text{Median}(\hat{\mu}_1,...,\hat{\mu}_k)$ is outside of $(\mu -\eps, \mu +\eps)$ iff there are either $\geq (k+1)/2$ estimates $> \mu +\eps$ or $\geq (k+1)/2$ estimates $< \mu -\eps$. In either case, we have that our weak estimator failed $\geq (k+1)/2$ times. Letting $F_i = 1 \text{ when $\hat{\mu}_i \in (\mu-\eps, \mu+\eps)$}$ and 0 otherwise, we get
 \begin{align*}
     \P \l\{\text{Median}(\hat{\mu}_1,...,\hat{\mu}_k) \text{ is not $\eps$-accurate}\r\} &\leq \P \l\{\sum_{i=1}^k F_i \geq \frac {k+1}2\r\} \\
     &= \P \l\{\sum_{i=1}^k (F_i - \E F_1) \geq \frac {k+1}2 - k\E F_1\r\} \\
@@ -235,21 +235,33 @@ Let $X_1,...,X_N$ be non-negative independent random variables with continuous d
 \begin{enumerate}[label=(\alph*)]
 \item Show that the MGF of $X_i$ satisfies
 \begin{align*}
-    \E \exp(-tX_i) \leq \frac 1 t \qquad{\text{for all $t\geq 0$}}
+    \E \exp(-tX_i) \leq \frac 1 t \qquad{\text{for all $t > 0$}}
 \end{align*}
 \begin{proof}[Answer]
+For non-negative $X_i$ with bounded density function $0 \leq p(x) \leq 1$
+\begin{align*}
+    \E \exp\l(-tX_i\r) = \int^\infty_0  p(x) e^{-tx} dx \leq \int_0^\infty e^{-tx} dx = \l[-\frac 1 t e^{-tx}\r]^\infty_0 = \frac 1 t
+\end{align*}
 \end{proof}
 
 \item Deduce that for any $\eps > 0$ we have
 \begin{align*}
     \P \l\{\sum_{i=1}^N X_i \leq \eps N\r\} \leq (e\eps)^N
 \end{align*}
+(This result essentially says that for ``sufficiently distributed'' (at least, with support of measure $\geq 1$) non-negative RVs, their sum is unlikely to be bounded by any constant fraction of the number of trials.)
 \begin{proof}[Answer]
+Consider the MGF for $-\sum_{i=1}^N X_i$, evalutated at $\lambda = 1/\eps$
+\begin{align*}
+    \P \l\{\sum_{i=1}^N X_i \leq \eps N\r\} &= \P \l\{\sum_{i=1}^N -X_i \geq -\eps N\r\} \\
+    &\leq \P \l\{\exp\l(-\frac 1 {\eps}\sum_{i=1}^N X_i\r) \leq e^ {- N }\r\} \\
+    &\leq\l(\prod_{i=1}^N \E \exp\l(-\frac1{\eps} X_i\r)\r) /e^{-N} &\text{(by Markov's (Prop. \ref{1.2.4}) and indep.)} \\
+    &\leq (e\eps)^N &\text{(applying part (a) with $t=1/\eps$)}
+\end{align*}
+Note that this choice of $\lambda$ minimizes the right hand side of the expression, which can be verified by taking derivatives w.r.t $\lambda$.
 \end{proof}
-
 \end{enumerate}
 \end{ex}
 
 
-\subsection{Chernoffs's inequality}
+\subsection{Chernoff's inequality}
 
