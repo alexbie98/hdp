@@ -281,7 +281,7 @@ In the setting of Theorem \ref{2.3.1}, show that for $t < \mu$
 \end{align*}
 \end{ex}
 \begin{proof}[Answer]
-This result is a modification of the proof of Theorem \ref{2.3.1}.
+This result can be obtained by modifying the proof of Theorem \ref{2.3.1}.
 \begin{align*}
     \P \l\{\sum_{i=1}^N X_i \leq t \r\} &= \P \l\{\exp\l(-\lambda\sum_{i=1}^N X_i\r) \geq e^{-\lambda t} \r\} &\text{(for any $\lambda\geq 0$)} \\
     &\leq \E \exp\l(-\lambda\sum_{i=1}^N X_i\r) \cdot e^{\lambda t} &\text{(by Markov's (Prop. \ref{1.2.4}))} \\
@@ -299,12 +299,21 @@ which yields
 \end{align*}
 \end{proof}
 
-
 \begin{ex}{2.3.3}[Poisson tails]\label{2.3.3}
-Let $X \sim \text{Poisson}(\lambda)$. Show that for $t > \mu$
+Let $X \sim \text{Poisson}(\lambda)$. Show that for $t > \lambda$
 \begin{align*}
     \P \l\{X \geq t \r\} \leq e^{-\lambda} \l( \frac {e\lambda} {t}\r)^t
 \end{align*}
+\begin{proof}[Answer] Consider the MGF of $X$, and apply Markov's inequality (Prop. \ref{1.2.4}). For all $c \geq 0$, we have
+\begin{align*}
+    \P \l\{ X \geq t\r\} \leq \P \l\{e^{cX} \leq e^{ct}\r\} \leq \E e^{cX} \cdot e^{-ct} = e^{-ct}\cdot\sum_{k=0}^\infty e^{-\lambda}\frac{\lambda^k}{k!}e^{ck} = e^{-\lambda} \cdot e^{-ct} \sum_{k=0}^\infty\frac{(\lambda e^c)^k}{k!}
+\end{align*}
+Taking $c = \ln (t/\lambda) > 0$, since by assumption $t > \lambda$
+\begin{align*}
+    \P \{ X \geq t\} \leq e^{-\lambda}\cdot\l(\frac {\lambda} t\r)^t \cdot e^{\lambda (t/\lambda)} = e^{-\lambda}\l(\frac {e\lambda} t\r)^t
+\end{align*}
+
+\end{proof}
 \end{ex}
 
 \begin{rmk}{2.3.4}[Poisson tails]\label{2.3.4}
@@ -322,6 +331,35 @@ In the setting of Theorem \ref{2.3.1}, for $0 < \delta < 1$
 \end{align*}
 where $c$ is some absolute constant. Compared to the Hoeffding bound that has $-c\mu^2\delta^2/N$ in its exponent, we have $-c\mu\delta^2$, a $N/\mu \geq 1$ multiplier which speeds up convergence especially for small $\mu = \sum_{i=1}^N p_i$. 
 \end{ex}
+
+\begin{proof}[Answer]
+    To bound the upper tail, since $(1+\delta) \mu > \mu$ we can apply Theorem \ref{2.3.1}
+\begin{align*}
+    \P \l\{\sum_{i=0}^N X_i - \mu \geq \delta \mu\r\} = 
+    \P \l\{\sum_{i=0}^N X_i \geq (1+\delta) \mu\r\} \leq e^{-\mu}\l(\frac {e\mu} {(1+\delta)\mu}\r)^{(1+\delta)\mu} = \exp\l(\delta\mu - \ln (1+\delta)(1+\delta)\mu\r)
+\end{align*}
+If we can find $c>0$ such that $\delta - \ln(1+\delta)(1+\delta) \leq -c\delta^2$, equivalently that $\ln(1+\delta)(1+\delta) - \delta \geq c\delta^2$ for all $0 < \delta < 1$, then by the previous string of inequalities we get
+\begin{align*}
+    \P \l\{\sum_{i=0}^N X_i - \mu \geq \delta \mu\r\} \leq \exp\l(-c\delta^2\mu\r)
+\end{align*}
+Using the Maclaourin series for $\ln(1+x)$, we have that for $x \geq 0$
+\begin{align*}
+    \ln (1 + x) \geq x - \frac {x^2} 2 + \frac {x^3} 3 - \frac {x^4}4 
+\end{align*}
+Plugging this in, we get
+\begin{align*}
+    \ln(1+\delta)(1+\delta) - \delta &\geq (\delta - \frac {\delta^2} 2 + \frac {\delta^3} 3 - \frac {\delta^4}4 )(1+\delta) - \delta \\
+    &=\frac{\delta^2} 2 - \frac{\delta^3} 6 + \frac {\delta^4} {12} - \frac{\delta^5} 4 \\
+    &\geq \frac {\delta^2} {12} &\text{(since $-\delta^3, -\delta^4 \geq -\delta^2$ on $\delta \in [0,1]$)}
+\end{align*}
+So choosing $c = 1/12$ suffices to prove the result for the upper tail. For the lower tail, we are trying to bound
+\begin{align*}
+    \P \l\{\sum_{i=0}^N X_i - \mu \leq -\delta \mu\r\} = 
+    \P \l\{\sum_{i=0}^N X_i \leq (1-\delta) \mu\r\} \leq \exp \l(-c\delta^2\mu\r)
+\end{align*} 
+Note that since $(1-\delta)\mu < \mu$, we can apply Exercise \ref{2.3.2}, and proceed exactly as in the upper tail calculation to arrive at the same bound. The event of observing absolute deviation from the mean $\geq \delta\mu$ is precisely the disjoint union of these two events, so we add the probabilities to get the desired result.
+
+\end{proof}
 
 \begin{ex}{2.3.6}[Poisson distribution near the mean]\label{2.3.6}
 Let $X \sim \text{Poisson}(\lambda)$. Show that for $0 < t \leq \lambda$
