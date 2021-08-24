@@ -273,8 +273,6 @@ Let $X_1,...,X_N$ be independent Bernoulli random variables with parameters $p_i
     \P \l\{\sum_{i=1}^N X_i \geq t \r\} \leq e^{-\mu}\l(\frac {e \mu} {t}\r)^t
 \end{align*}
 \end{thm}
-\begin{proof}
-\end{proof}
 
 \begin{ex}{2.3.2}[Chernoff's inequality, lower tail]\label{2.3.2}
 In the setting of Theorem \ref{2.3.1}, show that for $t < \mu$
@@ -282,6 +280,25 @@ In the setting of Theorem \ref{2.3.1}, show that for $t < \mu$
     \P \l\{\sum_{i=1}^N X_i \leq t \r\} \leq e^{-\mu}\l(\frac {e \mu} {t}\r)^t
 \end{align*}
 \end{ex}
+\begin{proof}[Answer]
+This result is a modification of the proof of Theorem \ref{2.3.1}.
+\begin{align*}
+    \P \l\{\sum_{i=1}^N X_i \leq t \r\} &= \P \l\{\exp\l(-\lambda\sum_{i=1}^N X_i\r) \geq e^{-\lambda t} \r\} &\text{(for any $\lambda\geq 0$)} \\
+    &\leq \E \exp\l(-\lambda\sum_{i=1}^N X_i\r) \cdot e^{\lambda t} &\text{(by Markov's (Prop. \ref{1.2.4}))} \\
+    &= e^{\lambda t} \cdot \prod_{i=1}^N \E \exp\l( -\lambda X_i\r) &\text{(by independence)}
+\end{align*}
+For each term, we have
+\begin{align*}
+    \E \exp(-\lambda X_i) = p_i e^{-\lambda} + (1-p_i) = 1 + p_i\l(e^{-\lambda} -1\r) \leq \exp \l(p_i\l(e^{-\lambda} - 1\r)\r)
+\end{align*}
+which yields
+\begin{align*}
+    \P \l\{\sum_{i=1}^N X_i \leq t \r\} &\leq \exp \l( \lambda t + \mu(e^{-\lambda} - 1)\r) &\text{(since $\mu= \sum_{i=1}^N p_i$)} \\
+    &= \exp \l(t \ln \frac \mu t + t - \mu\r) &\text{(plugging in $\lambda = \ln \frac \mu t > 0$ by $\mu>t$)} \\
+    &= e^{-\mu}\l(\frac {e\mu} t\r)^t
+\end{align*}
+\end{proof}
+
 
 \begin{ex}{2.3.3}[Poisson tails]\label{2.3.3}
 Let $X \sim \text{Poisson}(\lambda)$. Show that for $t > \mu$
