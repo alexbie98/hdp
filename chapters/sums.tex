@@ -368,10 +368,26 @@ Let $X \sim \text{Poisson}(\lambda)$. Show that for $0 < t \leq \lambda$
 \end{align*}
 for some absolute constant $c$. Note that this, combined with Exercise \ref{2.3.3} tell us that we have gaussian tails near the mean, but further away they are heavier.
 \end{ex}
-
+\begin{proof}[Answer]
+The proof proceeds exactly as in Exercise \ref{2.3.5}. We'll bound the upper tail using the result of Exercise \ref{2.3.3}, the lower tail can be bounded by a variation of the result of Exercise \ref{2.3.3} adapted for the lower tail (following how Exercise \ref{2.3.2} is proven). Let $0 < t \leq \lambda$
+\begin{align*}
+    \P \{X - \lambda \geq t\} =  \P \l\{X \geq \lambda \l(1 +  t/\lambda\r)\r\} \leq e^{-\lambda}\l(\frac {e\lambda} {\lambda(1 + t/\lambda)}\r)^{\lambda(1+t/\lambda)} = \exp \l(\lambda\delta - \ln(1+\delta)(1+\delta)\lambda\r)
+\end{align*}
+taking $\delta = t/\lambda \in (0,1]$. Using the Maclaurin series for $\ln(1+x)$, we have that for $\delta \in (0,1]$
+\begin{align*}
+    \exp(\delta\lambda - \ln(1 + \delta)(1+\delta)\lambda) \leq \exp \l(\frac {-\delta^2\lambda} {12}\r) =  \exp\l(\frac {-ct^2} {\lambda}\r)
+\end{align*}
+\end{proof}
 \begin{ex}{2.3.8}[Normal approximation to Poisson]\label{2.3.8}
-Let $X \sim \text{Poisson}(\lambda)$. Show that as $k\to\infty$
+Let $X \sim \text{Poisson}(\lambda)$. Show that as $\lambda\to\infty$
 \begin{align*}
     \frac {X - \lambda} {\sqrt{\lambda}} \to N(0,1) \quad\text{in distribution}
 \end{align*}
 \end{ex}
+\begin{proof}[Answer]
+The result follows from applying the Berry-Esseen CLT (Theorem \ref{2.1.3}) with $N=1$.\footnote{The hint suggests to use the fact that $X = \sum_{i=1}^N X_i$ where $X_i$ are independent Poisson RVs, and then applying the regular CLT. I couldn't find a proof this way except for the special case where $\{\lambda_n\} = n \in \N$ for $n \to \infty$.} In the setting of the theorem, $\rho = \E | X - \mu|^3/\sigma^3 = \lambda/\lambda^{3/2}=1/\sqrt{\lambda}$ (the mean, variance, and third centered moment of $X\sim \text{Poisson}(\lambda)$ are all $\lambda$). Therefore
+\begin{align*}
+    \l|\P\l\{\frac {X-\lambda}{\sqrt{\lambda}} \leq t\r\} - \Phi(t)\r| \leq \frac \rho {\sqrt{N}} = \frac 1 {\sqrt{\lambda}} \to 0 \text{ as $\lambda\to \infty$, for all $t\in \R$ simultaneously}
+\end{align*}
+(Note that the result we proved here is stronger than convergence in distribution, which only requires pointwise convergence of the CDFs. Here we have that the CDFs converge \textit{uniformly} on $\R$.)
+\end{proof}
