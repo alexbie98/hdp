@@ -263,7 +263,7 @@ Note that this choice of $\lambda$ minimizes the right hand side of the expressi
 \end{ex}
 
 
-\subsection{Chernoff's inequality}
+\subsection{Chernoff's inequality} % ------------------------------------------
 
 In the case where $X_i \sim \text{Bernoulli}(p_i)$ we can get tighter bounds than Hoeffding's.
 
@@ -391,3 +391,48 @@ The result follows from applying the Berry-Esseen CLT (Theorem \ref{2.1.3}) with
 \end{align*}
 (Note that the result we proved here is stronger than convergence in distribution, which only requires pointwise convergence of the CDFs. Here we have that the CDFs converge \textit{uniformly} on $\R$.)
 \end{proof}
+
+\newpage
+\subsection{Application: Degrees of random graphs} % -------------------
+
+\begin{defn}{2.4.0}[Erdos-Renyi random graphs]\label{2.4.0}
+A \textbf{random graph} $G(n,p)$ for $n\geq 1$ and $p \in [0,1]$ defines a distribution on undirected graphs with $n$ vertices, where for all $1 \leq i < j \leq n$, the existence of edge $e_{ij}$ connecting vertices $i$ and $j$ is sampled independently with probability $p$. The \textbf{expected degree} of every vertex of $G(n,p)$ is
+\begin{align*}
+    d := \E \sum_{j\neq i}^n e_{ij} = p(n-1)
+\end{align*}
+\end{defn}
+
+Informally, we say that random graphs are ``relatively dense'' when $d\geq \log n$, and ``almost regular'' if with high probability the degrees of all vertices approximately equal $d$.
+
+\begin{prop}{2.4.1}[Dense graphs are almost regular]\label{2.4.1}
+There exists $C$ such that for random graphs $G \sim G(n,p)$ with $d \geq C\log n$, with probability $\geq 0.9$ all vertices of $G$ have degrees between $0.9d$ and $1.1d$.
+\end{prop}
+\begin{proof}[Proof sketch]
+For each individual vertex, we can bound the probability of its degree deviating signficantly from $d$ with the small deviation Chernoff bound (Exercise \ref{2.3.5}). A union bound gives us an upper limit on the probability \textit{any} vertex deviates significantly. The final choice of $C$ has to be appropriately large to ensure the bound is not vacuous.
+\end{proof}
+
+\begin{ex}{2.4.2}[Bounding the degrees of sparse graphs]\label{2.4.2} 
+Let $G \sim G(n,p)$ be a random graph with $d = O(\log n)$. With probability $\geq 0.9$ all vertices of $G$ have degree $O(\log n)$.
+\end{ex}
+\begin{proof}[Answer]
+\end{proof}
+
+\begin{ex}{2.4.3}[Bounding the degrees of very sparse graphs]\label{2.4.3} 
+Let $G \sim G(n,p)$ be a random graph with $d = O(1)$. With probability $\geq 0.9$ all vertices of $G$ have degree $O(\log n/\log\log n)$.
+\end{ex}
+\begin{proof}[Answer]
+\end{proof}
+
+\begin{ex}{2.4.4}[Sparse graphs are not almost regular]\label{2.4.4} 
+Let $G \sim G(n,p)$ be a random graph with $d = o(\log n)$. With probability $\geq 0.9$ $G$ has a vertex with degree $10d^2$.
+\end{ex}
+\begin{proof}[Answer]
+\end{proof}
+
+\begin{ex}{2.4.5}[Very sparse graphs are far from being almost regular]\label{2.4.5} 
+Let $G \sim G(n,p)$ be a random graph with $d = O(1)$. With probability $\geq 0.9$ $G$ has a vertex with degree of order $\Omega(\log n/\log\log n)$.
+\end{ex}
+\begin{proof}[Answer]
+\end{proof}
+
+\subsection{Sub-Gaussian distributions} %----------------------------
