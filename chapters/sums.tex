@@ -415,6 +415,19 @@ For each individual vertex, we can bound the probability of its degree deviating
 Let $G \sim G(n,p)$ be a random graph with $d = O(\log n)$. With probability $\geq 0.9$ all vertices of $G$ have degree $O(\log n)$.
 \end{ex}
 \begin{proof}[Answer]
+By assumption there exists $N, C$ s.t. for $n\geq N$ we have $d \leq C \log n$. In particular we can choose $C \geq 1$. Letting $d_i$ be the degree of vertex $i$, by Chernoff's inequality (Theorem \ref{2.4.2}), since $d < e^2C\log n$
+\begin{align*}
+    \P \{ d_i \geq e^2C\log n\} &\leq e^{-d}\l(\frac  {ed} {e^2C\log n}\r)^{e^2C\log n} \\
+    &= \exp \l( -d + (1 + \log d -2 - \log C - \log\log n)e^2C\log n\r) \\
+    &\leq \exp \l( -d + (1 + \log C\log n -2 - \log C - \log\log n)e^2C\log n\r) \\
+    &= \exp \l( -d + -e^2C\log n\r) \\
+    &\leq \l(\frac 1 n\r)^{e^2 C}
+\end{align*}
+Applying the union bound yields
+\begin{align*}
+    \P \{ \text{there exists vertex $i$ with } d_i \geq e^2C\log n\} \leq \l(\frac 1 n\r)^{e^2 C -1} \leq 0.1
+\end{align*}
+for sufficiently large $n \geq N_2$. Then for all $n \geq N, N_2$ we have with probablity $\geq 0.1$ all $d_i \leq e^2C\log n$, i.e. all vertices have degree $O(\log n)$.
 \end{proof}
 
 \begin{ex}{2.4.3}[Bounding the degrees of very sparse graphs]\label{2.4.3} 
