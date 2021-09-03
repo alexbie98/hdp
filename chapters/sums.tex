@@ -434,6 +434,16 @@ for sufficiently large $n \geq N_2$. Then for all $n \geq N, N_2$ we have with p
 Let $G \sim G(n,p)$ be a random graph with $d = O(1)$. With probability $\geq 0.9$ all vertices of $G$ have degree $O(\log n/\log\log n)$.
 \end{ex}
 \begin{proof}[Answer]
+Since $d = O(1)$, there exists $M>0$ s.t. $d \leq M$ for all $n$. Also take $t = 2 \log n / \log\log n$.
+Following the same steps as in Exercise \ref{2.4.2} we arrive at
+\begin{align*}
+\P \{ \text{there exists vertex $i$ with } d_i \geq t \} &\leq \exp \l(\log n + t(1 + \log M - \log t) \r) \\
+&\leq \exp \l(\log n + (1+ \log M -\log 2 - \log\log n + \log\log\log n)\frac {2\log n} {\log\log n}\r) \\
+&= \exp \l( - \log n + \log n \cdot O(\frac{\log\log\log n} {\log \log n})\r) \\
+&= \exp \l(-(1 + o(1))\log n\r) \\
+&\leq 0.1
+\end{align*}
+for suitably large $n$. Hence with probability $\geq 0.1$ all degrees are $O(\log n / \log\log n)$.
 \end{proof}
 
 \begin{ex}{2.4.4}[Sparse graphs are not almost regular]\label{2.4.4} 
