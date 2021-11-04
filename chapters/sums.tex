@@ -478,3 +478,52 @@ Let $G \sim G(n,p)$ be a random graph with $d = O(1)$. With probability $\geq 0.
 \end{proof}
 
 \subsection{Sub-Gaussian distributions} %----------------------------
+\begin{rmk}{2.5.0} \label{2.5.0}
+We have seen that bounded random variables $m_i \leq X_i \leq M_i$ with $\E X_i = 0$ satisfy Hoeffding's inequality, that 
+\begin{align*}
+\P \l\{\l|\sum_{i=1}^n X_i \r| \geq t\r\} \leq 2\exp (-2t^2/ \|M-m\|_2^2)
+\end{align*}
+So for $n=1$, we must have $\P \{|X_i| \geq t\} \leq 2\exp (-ct^2)$ for a Hoeffding-like inequality to hold, i.e. $X_i$ must have \textbf{sub-gaussian tails}. Note that $N(0,1)$ is the canonical distribution satisfying this property, $\P \{|X| \geq t\} \leq 2\exp(-t^2/2)$ (By Proposition \ref{2.1.2}, with the fact that $\P \{X \geq t\} \leq 1/2 \leq e^{-1/2} \leq e^{-t^2/2}$ for $0\leq t \leq 1$). 
+
+A classic result is that $\E \exp (\lambda X) = e^{\lambda^2/2}$ for all $\lambda \in \R$. It turns out that these 2 properties, plus the one in the following exercise are all equivalent.
+\end{rmk}
+
+\begin{ex}{2.5.1}[Moments of the normal distribution]\label{2.5.1}
+Show that for $p\geq 1$, $X \sim N(0,1)$ satisfies
+\begin{align*}
+    \|X\|_{L^p} := (\E |X|^p)^{1/p} = \sqrt 2 \l(\frac {\Gamma((1+p/2))} {\Gamma (1/2)} \r)^{1/p}
+\end{align*}
+and deduce that $\| X\|_{L_p} = O(\sqrt p)$.
+\begin{proof}[Answer]
+\end{proof}
+\end{ex}
+
+\begin{thm}{2.5.2}[Sub-gaussian properties]\label{2.5.2}
+Let $X$ be a random variable. The following properties are equivalent  (furthermore note that the $K_i$ appearing differ from another by a constant factor)
+
+\begin{enumerate}
+\item The tails of $X$ satisfy
+\begin{align*}
+    \P \{|X| \geq t\} \leq 2\exp(-t^2/K_1^2) \qquad\text{for all $t\geq 0$}
+\end{align*}
+\item The moments of $X$ satisfy
+\begin{align*}
+    \|X\|_{L_p} = (\E |X|^p)^{1/p} \leq K_2 \sqrt p \qquad\text{for all $p \geq 1$}
+\end{align*}
+\item The MGF of $X^2$ satisfies
+\begin{align*}
+    \E \exp (\lambda^2X^2) \leq \exp(K_3^2 \lambda^2) \qquad\text{for all $\lambda$ such that $|\lambda| \leq \frac 1 {K_3}$}
+\end{align*}
+\item The MGF of $X^2$ is bounded at some point, namely 
+\begin{align*}
+    \E \exp(X^2/K_4^2) \leq 2
+\end{align*}
+\noindent And if $\E X = 0$, then (1)-(4) are also equivalent to
+\item The MGF of $X$ satisfies
+\begin{align*}
+    \E \exp (\lambda X) \leq \exp (K_5^2 \lambda^2)
+\end{align*}
+\end{enumerate}
+\end{thm}
+\begin{proof}
+\end{proof}
