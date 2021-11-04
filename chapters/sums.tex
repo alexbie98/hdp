@@ -415,7 +415,7 @@ For each individual vertex, we can bound the probability of its degree deviating
 Let $G \sim G(n,p)$ be a random graph with $d = O(\log n)$. With probability $\geq 0.9$ all vertices of $G$ have degree $O(\log n)$.
 \end{ex}
 \begin{proof}[Answer]
-By assumption there exists $N, C$ s.t. for $n\geq N$ we have $d \leq C \log n$. In particular we can choose $C \geq 1$. Letting $d_i$ be the degree of vertex $i$, by Chernoff's inequality (Theorem \ref{2.4.2}), since $d < e^2C\log n$
+By assumption there exists $N, C$ s.t. for $n\geq N$ we have $d \leq C \log n$. In particular we can choose $C \geq 1$. Letting $d_i$ be the degree of vertex $i$, by Chernoff's inequality (Theorem \ref{2.3.1}), since $d < e^2C\log n$
 \begin{align*}
     \P \{ d_i \geq e^2C\log n\} &\leq e^{-d}\l(\frac  {ed} {e^2C\log n}\r)^{e^2C\log n} \\
     &= \exp \l( -d + (1 + \log d -2 - \log C - \log\log n)e^2C\log n\r) \\
@@ -447,9 +447,28 @@ for suitably large $n$. Hence with probability $\geq 0.1$ all degrees are $O(\lo
 \end{proof}
 
 \begin{ex}{2.4.4}[Sparse graphs are not almost regular]\label{2.4.4} 
-Let $G \sim G(n,p)$ be a random graph with $d = o(\log n)$. With probability $\geq 0.9$ $G$ has a vertex with degree $10d^2$.
+Let $G \sim G(n,p)$ be a random graph with $d = o(\log n)$. With probability $\geq 0.9$ $G$ has a vertex with degree $10d$.
 \end{ex}
 \begin{proof}[Answer]
+We'll prove this for $G \sim (n+1,p)$ with $n$ even. Arranging our vertices $[n+1]$ in a circle, for every vertex $i$, we look at the next $n/2$ vertices in clockwise order and orient possible edges starting from $i$ to point outward. We note that the random variable $o_i$ representing $i$'s out-degree is independent, since each edge sampled only affects the out-degree of one vertex. Fix a vertex $i$. $o_i \sim \text{Bin}(n/2, d/n)$. We apply Le Cam's Theorem\footnote{\url{https://en.wikipedia.org/wiki/Le_Cam\%27s_theorem}}, which we note, is a strengthening of the Poisson limit theorem (Theorem \ref{1.3.4}) that gives the quantitative rate of convergence, which becomes useful for the proof. For all $n$ we have
+\begin{align*}
+    \P \{ o_i < 10d \} \leq \P \{X < 10d\} + d^2/n \leq \P \{X \neq 10d\} + d^2/n = 1 - (\P \{X = 10d\} -d^2/n)
+\end{align*}
+For $X \sim \text{Poisson}(d/2)$. Note that Stirling's formula applied to the Poisson density (Remark \ref{2.3.4}) yields
+\begin{align*}
+\P \{X = k\} = (1 + o(1)) \frac 1 {\sqrt{2 \pi k}} e^{-\lambda} \l(\frac{e \lambda}k \r)^k
+\end{align*}
+For sufficiently large $n$ where $(1+o(1)) \geq 1/2$
+\begin{align*}
+    \P \{o_i < 10d \} \leq 1 - \l(\frac 1 {2\sqrt{20\pi d}} e^{-d/2} \l(\frac {e} {20} \r)^{10d} - d^2/n\r)
+\end{align*}
+And by independence
+\begin{align*}
+    \P \{\text{all } o_i < 10d \} &\leq \exp\l(-\frac 1 {2\sqrt{20\pi d}} e^{-d/2} \l(\frac {e} {20} \r)^{10d} + d^2/n\r)^n \\
+    &\leq \exp\l(-\frac 1 {2\sqrt{20\pi}} e^{-(\log d)/2} e^{-d/2} e^{10d} e^{-10d\log 20 } e^{\log n} + d^2\r) \\
+    &= \exp \l(-Ce^{\log n - cd} + d^2\r)
+\end{align*}
+where $c\geq1$. Choosing $n$ large enough such that $d \leq \frac 1 {2c} \log n \leq \log n$, we get $\P \{\text{all } o_i < 10d \} \leq \exp \l(-Cn^{1/2} + (\log n)^2\r)$ which can be made $\leq 0.1$ for large enough $n$.
 \end{proof}
 
 \begin{ex}{2.4.5}[Very sparse graphs are far from being almost regular]\label{2.4.5} 
